@@ -20,7 +20,7 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
-    private Usuario user;
+    private Usuario usuario;
 
     @Column(name = "description", length = 255, nullable = false)
     @NotNull
@@ -33,7 +33,7 @@ public class Task {
 
     public Task(Long id, Usuario user, String descriprion) {
         this.id = id;
-        this.user = user;
+        this.usuario = user;
         this.descriprion = descriprion;
     }
 
@@ -46,11 +46,11 @@ public class Task {
     }
 
     public Usuario getUser() {
-        return user;
+        return usuario;
     }
 
     public void setUser(Usuario user) {
-        this.user = user;
+        this.usuario = user;
     }
 
     public String getDescriprion() {
@@ -75,7 +75,7 @@ public class Task {
                 return false;
             else return false;
 
-        return Objects.equals(this.id, other.id) && Objects.equals(this.user, other.user)
+        return Objects.equals(this.id, other.id) && Objects.equals(this.usuario, other.usuario)
                 && Objects.equals(this.descriprion, other.descriprion);
     }
 
