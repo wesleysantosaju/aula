@@ -48,4 +48,27 @@ public class UsuarioController {
         return new ResponseEntity<>("Usuario criado com sucesso!", HttpStatus.CREATED);
     }
 
+    @PutMapping("/atualizar/{id}")
+    public ResponseEntity updateUser(@RequestBody UsuarioRequest ur, @PathVariable Long id) {
+        //atualizar o usuario
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        usuario.setUsername(ur.getUsername());
+        usuario.setPassword(ur.getPassword());
+
+        // Salvar o usuário atualizado no repositório
+        usuarioRepository.save(usuario);
+
+        // Retornar resposta de sucesso
+        return new ResponseEntity<>("Usuário atualizado com sucesso!", HttpStatus.OK);
+        }
+
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity deleteUser(@PathVariable Long id) {
+        //deletar o usuario
+        usuarioRepository.deleteById(id);
+        // Retornar resposta de sucesso
+        return new ResponseEntity<>("Usuario deletado com sucesso!", HttpStatus.OK);
+    }
 }
