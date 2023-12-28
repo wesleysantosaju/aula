@@ -19,22 +19,22 @@ public class Task {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false, updatable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private Usuario usuario;
 
     @Column(name = "description", length = 255, nullable = false)
     @NotNull
     @NotEmpty
     @Size(min = 1, max = 255)
-    private String descriprion;
+    private String description;
 
     public Task() {
     }
 
-    public Task(Long id, Usuario user, String descriprion) {
+    public Task(Long id, Usuario user, String description) {
         this.id = id;
         this.usuario = user;
-        this.descriprion = descriprion;
+        this.description = description;
     }
 
     public Long getId() {
@@ -53,12 +53,12 @@ public class Task {
         this.usuario = user;
     }
 
-    public String getDescriprion() {
-        return descriprion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescriprion(String descriprion) {
-        this.descriprion = descriprion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class Task {
             else return false;
 
         return Objects.equals(this.id, other.id) && Objects.equals(this.usuario, other.usuario)
-                && Objects.equals(this.descriprion, other.descriprion);
+                && Objects.equals(this.description, other.description);
     }
 
     @Override
