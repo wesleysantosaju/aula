@@ -69,6 +69,14 @@ public class HomeController {
         return new ResponseEntity<>(new TaskDTO(taskDTO.getId(), taskDTO.getDescription(), taskDTO.getUser().getId()), HttpStatus.OK);
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity updateTask(@RequestBody TaskRequest taskRequest, @PathVariable Long id) {
+        Task taskDTO = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
+        taskDTO.setDescription(taskRequest.getDescription());
+        taskRepository.save(taskDTO);
+        return new ResponseEntity<>("Tarefa atualizada com sucesso", HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteTask(@PathVariable Long id) {
         Task taskDTO = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
