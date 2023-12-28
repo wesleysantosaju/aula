@@ -61,4 +61,17 @@ public class HomeController {
         // Retornar resposta de sucesso
         return new ResponseEntity<>("Tarefa criada com sucesso", HttpStatus.CREATED);
     }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<TaskDTO> getId(@PathVariable Long id) {
+        Task taskDTO = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
+        return new ResponseEntity<>(new TaskDTO(taskDTO.getId(), taskDTO.getDescription(), taskDTO.getUser().getId()), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity deleteTask(@PathVariable Long id) {
+        Task taskDTO = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
+        taskRepository.deleteById(id);
+        return new ResponseEntity<>("Tarefa excluída com sucesso", HttpStatus.OK);
+    }
 }
